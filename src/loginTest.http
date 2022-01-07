@@ -1,0 +1,8 @@
+POST localhost:8080/auth/login
+Content-Type: application/json
+Authorization: "ROLE_ADMIN"
+
+{
+  "userId" : "jinwoo",
+  "password": "2342424"
+}
