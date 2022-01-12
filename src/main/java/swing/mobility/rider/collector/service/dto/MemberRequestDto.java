@@ -17,6 +17,9 @@ public class MemberRequestDto {
 
     private String userId;
     private String password;
+    private String name;
+    private String phoneNumber;
+    private Long bandId;
     private Authority authority;
 
 
@@ -24,6 +27,9 @@ public class MemberRequestDto {
         return Collector.builder()
                 .userId(userId)
                 .password(passwordEncoder.encode(password))
+                .name(name)
+                .phoneNumber(phoneNumber)
+                .bandId(bandId)
                 .authority(ROLE_ADMIN)
                 .build();
     }

@@ -17,7 +17,7 @@ public class Collector {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "collector_id", nullable = true, updatable = true)
+    @Column(name = "collector_id")
     private Long id;
 
     @Column(name = "user_id", nullable = false)
@@ -26,13 +26,13 @@ public class Collector {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "name", nullable = true)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "phone_no", nullable = true)
+    @Column(name = "phone_no", nullable = false)
     private String phoneNumber;
 
-    @Column(name = "band_id", nullable = true)
+    @Column(name = "band_id", nullable = false)
     private Long bandId;
 
     @Enumerated(EnumType.STRING)

@@ -1,7 +1,9 @@
 package swing.mobility.rider.collector.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.Ordered;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -17,6 +19,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import swing.mobility.rider.collector.security.jwt.JwtAccessDeniedHandler;
 import swing.mobility.rider.collector.security.jwt.JwtAuthenticationEntryPoint;
 import swing.mobility.rider.collector.security.jwt.TokenProvider;
+import swing.mobility.rider.collector.web.filter.AppAuthorizationFilter;
 
 import java.util.Arrays;
 
@@ -27,6 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final TokenProvider tokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+    private final AppAuthorizationFilter appAuthorizationFilter;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -80,5 +84,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
+    }
+
+    @Bean
+    public FilterRegistrationBean<AppAuthorizationFilter> appAuthorizationFilterFilterRegistrationBean() {
+        FilterRegistrationBean<AppAuthorizationFilter> filterFilterRegistrationBean = new FilterRegistrationBean<>();
+        filterFilterRegistrationBean.setFilter(appAuthorizationFilter);
+        filterFilterRegistrationBean.addUrlPatterns("/api/*");
+        filterFilterRegistrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        return filterFilterRegistrationBean;
     }
 }

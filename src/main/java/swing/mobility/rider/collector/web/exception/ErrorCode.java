@@ -6,6 +6,7 @@ import lombok.Getter;
 public enum ErrorCode {
 
     // common error code
+    UNAUTHORIZED_APP_KEY(401, "C0000", "Unauthorized application error"),
     INVALID_APP_TOKEN(401, "C0001", "Invalid app token"),
     INVALID_ACCESS_TOKEN(401, "C0002", "Invalid access token"),
     BAD_INPUT_ERROR(400, "C0003", "Invalid Bad Input"),
