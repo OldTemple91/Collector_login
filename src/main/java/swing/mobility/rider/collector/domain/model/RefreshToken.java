@@ -13,7 +13,10 @@ import javax.persistence.*;
 public class RefreshToken {
 
     @Id
+    @Column(name = "Refresh_tokenKey")
     private String key;
+
+    @Column
     private String value;
 
     public RefreshToken updateValue(String token) {

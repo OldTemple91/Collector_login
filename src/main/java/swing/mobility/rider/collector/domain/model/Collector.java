@@ -16,7 +16,7 @@ import java.util.List;
 public class Collector {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "collector_id")
     private Long id;
 
