@@ -9,13 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import swing.mobility.rider.collector.security.jwt.JwtFilter;
 import swing.mobility.rider.collector.service.AuthService;
-import swing.mobility.rider.collector.service.dto.MemberRequestDto;
-import swing.mobility.rider.collector.service.dto.MemberResponseDto;
-import swing.mobility.rider.collector.service.dto.TokenDto;
-import swing.mobility.rider.collector.service.dto.TokenRequestDto;
+import swing.mobility.rider.collector.service.dto.*;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/accounts")
 @RequiredArgsConstructor
 public class AuthController {
     private final AuthService authService;
@@ -26,9 +23,9 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<TokenDto> login(@RequestBody MemberRequestDto memberRequestDto) {
+    public ResponseEntity<TokenDto> login(@RequestBody AuthDto authDto) {
 
-        TokenDto tokenDto = authService.login(memberRequestDto);
+        TokenDto tokenDto = authService.login(authDto);
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + tokenDto.getAccessToken());
@@ -36,9 +33,9 @@ public class AuthController {
         return new ResponseEntity<>(tokenDto, httpHeaders, HttpStatus.OK);
     }
 
-    @PostMapping("/updateToken")
-    public ResponseEntity<TokenDto> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
-        return ResponseEntity.ok(authService.reissue(tokenRequestDto));
+    @PostMapping("/token")
+    public ResponseEntity<TokenDto> reissue(@RequestBody AuthDto.updateRefresh updateRefresh) {
+        return ResponseEntity.ok(authService.reissue(updateRefresh));
     }
 
 }

@@ -7,9 +7,9 @@ import lombok.Data;
 @Data
 public class TokenDto {
 
-    private String grantType;
+    //private String grantType;
     private String accessToken;
-    private Long accessTokenExpiresIn;
+    private Long expiresIn;
     private String refreshToken;
 
 
