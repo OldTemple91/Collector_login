@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import swing.mobility.rider.collector.domain.model.Collector;
 import swing.mobility.rider.collector.domain.model.RefreshToken;
 import swing.mobility.rider.collector.domain.repository.MemberRepository;
+import swing.mobility.rider.collector.security.SecurityUtil;
 import swing.mobility.rider.collector.security.jwt.TokenProvider;
 import swing.mobility.rider.collector.service.dto.*;
 
@@ -59,5 +60,12 @@ public class AuthService {
         Authentication authentication = tokenProvider.getAuthentication(updateRefresh.getRefreshToken());
 
         return tokenProvider.generateTokenDto(authentication);
+    }
+
+    @Transactional(readOnly = true)
+    public AuthDto.getMyInfo getMyInfo() {
+        return memberRepository.findById(SecurityUtil.getCurrentMemberId())
+                .map(AuthDto.getMyInfo ::from)
+                .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
     }
 }

@@ -17,6 +17,12 @@ import swing.mobility.rider.collector.service.dto.*;
 public class AuthController {
     private final AuthService authService;
 
+    @GetMapping("/me")
+    public ResponseEntity<AuthDto.getMyInfo> getMyMemberInfo() {
+
+        return ResponseEntity.ok(authService.getMyInfo());
+    }
+
     @PostMapping("/signup")
     public ResponseEntity<MemberResponseDto> signup(@RequestBody MemberRequestDto memberRequestDto) {
         return ResponseEntity.ok(authService.signup(memberRequestDto));

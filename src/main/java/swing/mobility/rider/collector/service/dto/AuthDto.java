@@ -2,8 +2,10 @@ package swing.mobility.rider.collector.service.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import swing.mobility.rider.collector.domain.model.Collector;
 
 import javax.persistence.EnumType;
@@ -22,6 +24,21 @@ public class AuthDto {
     @JsonProperty(required = false)
     private TokenGrantType grantType;
 
+
+    @Getter
+    @Builder(access = AccessLevel.PRIVATE)
+    public static class getMyInfo {
+        private String userName;
+        private String password;
+
+
+        public static getMyInfo from(Collector c) {
+            return getMyInfo.builder()
+                    .userName(c.getUserId())
+                    .password(c.getPassword())
+                    .build();
+        }
+    }
 
 
     @Data
